@@ -41,7 +41,7 @@ class TSChatEmotionInputView: UIView {
         self.isUserInteractionEnabled = true
         
         //calculate width and height
-        let itemWidth = (UIScreen.ts_width - 10 * 2) / kNumberOfOneRow
+        let itemWidth = (UIScreen.main.bounds.size.width - 10 * 2) / kNumberOfOneRow
         let padding = (UIScreen.ts_width - kNumberOfOneRow * itemWidth) / 2.0
         let paddingLeft = padding
         let paddingRight = UIScreen.ts_width - paddingLeft - itemWidth * kNumberOfOneRow

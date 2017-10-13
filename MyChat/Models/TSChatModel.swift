@@ -10,17 +10,21 @@ import Foundation
 
 import YYText
 
-struct ChatModel: Codable {
-    var audioModel : ChatAudioModel? //音频的 Model
-    var imageModel : ChatImageModel? //图片的 Model
-    var chatSendId : String?    //发送人 ID
-    var chatReceiveId : String? //接受人 ID
-    var device : String? //设备类型，iPhone，Android
-    var messageContent : String?  //消息内容
-    var messageId : String?  //消息 ID
-    var messageContentType : MessageContentType = .Text //消息内容的类型
-    var timestamp : String? //同 publishTimestamp
-    var messageFromType : MessageFromType = MessageFromType.Group
+struct Chat: Codable {
+var audioModel : ChatAudioModel? //音频的 Model
+var imageModel : ChatImageModel? //图片的 Model
+var chatSendId : String?    //发送人 ID
+var chatReceiveId : String? //接受人 ID
+var device : String? //设备类型，iPhone，Android
+var messageContent : String?  //消息内容
+var messageId : String?  //消息 ID
+var messageContentType : MessageContentType = .Text //消息内容的类型
+var timestamp : String? //同 publishTimestamp
+var messageFromType : MessageFromType = MessageFromType.Group
+}
+
+struct ChatModel {
+    var chat:Chat?
     //以下是为了配合 UI 来使用
     var fromMe : Bool { return self.chatSendId == UserInstance.userId }
     var richTextLayout: YYTextLayout?
@@ -29,7 +33,42 @@ struct ChatModel: Codable {
     var messageSendSuccessType: MessageSendSuccessType = .failed //发送消息的状态
     var cellHeight: CGFloat = 0 //计算的高度储存使用，默认0
 
- 
+    //自定义时间 model
+    init(timestamp: String) {
+        super.init()
+        self.timestamp = timestamp
+        self.messageContent = self.timeDate.chatTimeString
+        self.messageContentType = .Time
+    }
+
+    //自定义发送文本的 ChatModel
+    init(text: String) {
+        super.init()
+        self.timestamp = String(format: "%f", Date.milliseconds)
+        self.messageContent = text
+        self.messageContentType = .Text
+        self.chatSendId = UserInstance.userId!
+    }
+
+    //自定义发送声音的 ChatModel
+    init(audioModel: ChatAudioModel) {
+        super.init()
+        self.timestamp = String(format: "%f", Date.milliseconds)
+        self.messageContent = "[声音]"
+        self.messageContentType = .Voice
+        self.audioModel = audioModel
+        self.chatSendId = UserInstance.userId!
+    }
+
+    //自定义发送图片的 ChatModel
+    init(imageModel: ChatImageModel) {
+        super.init()
+        self.timestamp = String(format: "%f", Date.milliseconds)
+        self.messageContent = "[图片]"
+        self.messageContentType = .Image
+        self.imageModel = imageModel
+        self.chatSendId = UserInstance.userId!
+    }
 }
 
 extension ChatModel {

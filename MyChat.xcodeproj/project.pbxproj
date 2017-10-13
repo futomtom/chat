@@ -71,6 +71,12 @@
 		FAEE21091F9179760097CA69 /* String+TSCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE21081F9179760097CA69 /* String+TSCrypto.swift */; };
 		FAEE210B1F917ACF0097CA69 /* UITableView+TSGeneric.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE210A1F917ACF0097CA69 /* UITableView+TSGeneric.swift */; };
 		FAEE210F1F917CB30097CA69 /* TSWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE210E1F917CB30097CA69 /* TSWebViewController.swift */; };
+		FAEE21111F917FD20097CA69 /* UIView+TSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE21101F917FD20097CA69 /* UIView+TSExtension.swift */; };
+		FAEE21131F9180410097CA69 /* NotificationCenter+TSBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE21121F9180410097CA69 /* NotificationCenter+TSBlock.swift */; };
+		FAEE21171F9183120097CA69 /* Timer+TSBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE21161F9183120097CA69 /* Timer+TSBlock.swift */; };
+		FAEE21191F9185730097CA69 /* NSObject+TSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE21181F9185720097CA69 /* NSObject+TSExtension.swift */; };
+		FAEE211B1F9186E10097CA69 /* UIColor+TSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE211A1F9186E10097CA69 /* UIColor+TSExtension.swift */; };
+		FAEE211D1F91877E0097CA69 /* UIScreen+TSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE211C1F91877E0097CA69 /* UIScreen+TSExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +174,12 @@
 		FAEE21081F9179760097CA69 /* String+TSCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+TSCrypto.swift"; sourceTree = "<group>"; };
 		FAEE210A1F917ACF0097CA69 /* UITableView+TSGeneric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+TSGeneric.swift"; sourceTree = "<group>"; };
 		FAEE210E1F917CB30097CA69 /* TSWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSWebViewController.swift; sourceTree = "<group>"; };
+		FAEE21101F917FD20097CA69 /* UIView+TSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TSExtension.swift"; sourceTree = "<group>"; };
+		FAEE21121F9180410097CA69 /* NotificationCenter+TSBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+TSBlock.swift"; sourceTree = "<group>"; };
+		FAEE21161F9183120097CA69 /* Timer+TSBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Timer+TSBlock.swift"; sourceTree = "<group>"; };
+		FAEE21181F9185720097CA69 /* NSObject+TSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+TSExtension.swift"; sourceTree = "<group>"; };
+		FAEE211A1F9186E10097CA69 /* UIColor+TSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+TSExtension.swift"; sourceTree = "<group>"; };
+		FAEE211C1F91877E0097CA69 /* UIScreen+TSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+TSExtension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,7 +384,13 @@
 			isa = PBXGroup;
 			children = (
 				FAEE210A1F917ACF0097CA69 /* UITableView+TSGeneric.swift */,
+				FAEE21181F9185720097CA69 /* NSObject+TSExtension.swift */,
+				FAEE21121F9180410097CA69 /* NotificationCenter+TSBlock.swift */,
+				FAEE211C1F91877E0097CA69 /* UIScreen+TSExtension.swift */,
+				FAEE21161F9183120097CA69 /* Timer+TSBlock.swift */,
+				FAEE211A1F9186E10097CA69 /* UIColor+TSExtension.swift */,
 				FAEE21061F9178CC0097CA69 /* TSConfig.swift */,
+				FAEE21101F917FD20097CA69 /* UIView+TSExtension.swift */,
 				FAEE21081F9179760097CA69 /* String+TSCrypto.swift */,
 				FAEE20ED1F916EA30097CA69 /* TSUIImage+WeChat.swift */,
 				FAEE20EF1F916EA30097CA69 /* TSImagePicker.swift */,
@@ -536,8 +554,10 @@
 			files = (
 				FAEE20F61F916EAA0097CA69 /* TSUIImage+WeChat.swift in Sources */,
 				FAEE20F81F916EAA0097CA69 /* TSImagePicker.swift in Sources */,
+				FAEE211D1F91877E0097CA69 /* UIScreen+TSExtension.swift in Sources */,
 				FAEE20F91F916EAA0097CA69 /* TSFullyHorizontalFlowLayout.swift in Sources */,
 				FAEE20FA1F916EAA0097CA69 /* TSUIImageVIew+WeChat.swift in Sources */,
+				FAEE21171F9183120097CA69 /* Timer+TSBlock.swift in Sources */,
 				FAEE210F1F917CB30097CA69 /* TSWebViewController.swift in Sources */,
 				FAEE20FB1F916EAA0097CA69 /* TSGlobalHelper.swift in Sources */,
 				FAEE20FC1F916EAA0097CA69 /* TSNavigationBar.swift in Sources */,
@@ -561,11 +581,13 @@
 				82CE35B11F90A3B50003C125 /* TSChatViewController+ActionBar.swift in Sources */,
 				82CE35B21F90A3B50003C125 /* TSChatViewController+CellEnums.swift in Sources */,
 				82CE35B31F90A3B50003C125 /* TSChatViewController+HandleData.swift in Sources */,
+				FAEE211B1F9186E10097CA69 /* UIColor+TSExtension.swift in Sources */,
 				82CE35B41F90A3B50003C125 /* TSChatViewController+Interaction.swift in Sources */,
 				82CE35B51F90A3B50003C125 /* TSChatViewController+Keyboard.swift in Sources */,
 				82CE35B61F90A3B50003C125 /* TSChatViewController+Subviews.swift in Sources */,
 				82CE35B71F90A3B50003C125 /* TSChatViewController+TestData.swift in Sources */,
 				FAEE21001F9174490097CA69 /* UIView+TSFrame.swift in Sources */,
+				FAEE21131F9180410097CA69 /* NotificationCenter+TSBlock.swift in Sources */,
 				82CE35B81F90A3B50003C125 /* TSChatViewController.swift in Sources */,
 				82CE35BA1F90A3B50003C125 /* TSChatActionBarView.swift in Sources */,
 				82CE35BC1F90A3B50003C125 /* TSChatButton+UI.swift in Sources */,
@@ -576,6 +598,7 @@
 				82CE35C31F90A3B50003C125 /* TSChatShareMoreCollectionViewCell.swift in Sources */,
 				82CE35C51F90A3B50003C125 /* TSChatShareMoreView.swift in Sources */,
 				FAEE21071F9178CC0097CA69 /* TSConfig.swift in Sources */,
+				FAEE21111F917FD20097CA69 /* UIView+TSExtension.swift in Sources */,
 				82CE35C71F90A3B50003C125 /* TSChatSystemEdgeLabel.swift in Sources */,
 				82CE35C81F90A3B50003C125 /* TSChatVoiceIndicatorView.swift in Sources */,
 				82CE35A51F90A3820003C125 /* TSChatBaseCell.swift in Sources */,
@@ -591,6 +614,7 @@
 				82CE356B1F90933B0003C125 /* TSContactModel.swift in Sources */,
 				82CE356C1F90933B0003C125 /* TSMessageModel.swift in Sources */,
 				82CE356D1F90933B0003C125 /* TSModel.swift in Sources */,
+				FAEE21191F9185730097CA69 /* NSObject+TSExtension.swift in Sources */,
 				82CE356F1F90933B0003C125 /* TSUploadModel.swift in Sources */,
 				82CE354E1F908E3B0003C125 /* AppDelegate.swift in Sources */,
 				82CE35601F9092330003C125 /* TSMessageViewController.swift in Sources */,

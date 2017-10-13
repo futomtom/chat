@@ -51,7 +51,7 @@ class TSChatEmotionScollView: UICollectionView {
     /**
      按住删除不动，触发 timer
      */
-    func startBackspaceTimer() {
+    @objc func startBackspaceTimer() {
         self.endBackspaceTimer()
         self.backspaceTimer = Timer.ts_every(0.1, {[weak self] in
             if self!.currentMagnifierCell!.isDelete {
@@ -118,7 +118,7 @@ class TSChatEmotionScollView: UICollectionView {
         self.magnifierContentImageView.layer.removeAllAnimations()
         
         let duration: TimeInterval = 0.1
-        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseIn, animations: {_ in
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseIn, animations: {
             self.magnifierContentImageView.top = 3
             }, completion: {finished in
                 UIView.animate(withDuration: duration, delay: 0, options: .curveEaseIn, animations: {_ in

@@ -63,7 +63,7 @@ class TSMessageViewController: UIViewController {
     }
     
     deinit {
-        log.verbose("deinit")
+        print("deinit")
     }
     
     override func didReceiveMemoryWarning() {

@@ -29,9 +29,8 @@ extension TSChatViewController {
         let tap = UITapGestureRecognizer()
         tap.cancelsTouchesInView = false
         self.listTableView.addGestureRecognizer(tap)
-        self.addTapGesture() {[weak self] _ in
-            guard let strongSelf = self else { return }
-            strongSelf.hideAllKeyboard()
+        view.addTapGesture() {_ in 
+            self.hideAllKeyboard()
         }
         
         self.view.addSubview(self.listTableView)

@@ -17,11 +17,10 @@ extension TSChatViewController {
         guard let list = self.fetchData() else {
             return
         }
-        self.itemDataSouce.insert(contentsOf: list, at: 0)
-        self.listTableView.reloadData({[unowned self] _ in
-            self.isReloading = false
-            })
-        self.listTableView.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)
+        itemDataSouce.insert(contentsOf: list, at: 0)
+        listTableView.reloadData()
+        isReloading = false
+        listTableView.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)
     }
     
     /**
@@ -52,32 +51,32 @@ extension TSChatViewController {
     
     //获取聊天列表数据
     func fetchData() -> [ChatModel]? {
-        guard let JSONData = Data.ts_dataFromJSONFile("chat") else {
-            return nil
-        }
+//        guard let JSONData = Data.ts_dataFromJSONFile("chat") else {
+//            return nil
+//        }
         
         var list = [ChatModel]()
-        let jsonObj = JSON(data: JSONData)
-        if jsonObj != JSON.null {
-            var temp: ChatModel?
-            for dict in jsonObj["data"].arrayObject! {
-                guard let model = TSMapper<ChatModel>().map(JSON: dict as! [String : Any]) else {
-                    continue
-                }
-                /**
-                *  1，刷新获取的第一条数据，加上时间 model
-                *  2，当后面的数据比前面一条多出 2 分钟以上，加上时间 model
-                */
-                if temp == nil || model.isLateForTwoMinutes(temp!) {
-                    guard let timestamp = model.timestamp else {
-                        continue
-                    }
-                    list.insert(ChatModel(timestamp: timestamp), at: list.count)
-                }
-                list.insert(model, at: list.count)
-                temp = model
-            }
-        }
+//        let jsonObj = JSON(data: JSONData)
+//        if jsonObj != JSON.null {
+//            var temp: ChatModel?
+//            for dict in jsonObj["data"].arrayObject! {
+//                guard let model = TSMapper<ChatModel>().map(JSON: dict as! [String : Any]) else {
+//                    continue
+//                }
+//                /**
+//                *  1，刷新获取的第一条数据，加上时间 model
+//                *  2，当后面的数据比前面一条多出 2 分钟以上，加上时间 model
+//                */
+//                if temp == nil || model.isLateForTwoMinutes(temp!) {
+//                    guard let timestamp = model.timestamp else {
+//                        continue
+//                    }
+//                    list.insert(ChatModel(timestamp: timestamp), at: list.count)
+//                }
+//                list.insert(model, at: list.count)
+//                temp = model
+//            }
+//        }
         return list
     }
     

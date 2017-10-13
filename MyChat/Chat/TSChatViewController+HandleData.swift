@@ -17,14 +17,14 @@ extension TSChatViewController {
         dispatch_async_safely_to_main_queue({[weak self] in
             guard let strongSelf = self else { return }
             guard let textView = strongSelf.chatActionBarView.inputTextView else {return }
-            guard textView.text.ts_length < 1000 else {
-                TSProgressHUD.ts_showWarningWithStatus("超出字数限制")
+            guard textView.text.characters.count < 1000 else {
+                print("超出字数限制")
                 return
             }
             
             let text = textView.text.trimmingCharacters(in: CharacterSet.whitespaces)
-            if text.length == 0 {
-                TSProgressHUD.ts_showWarningWithStatus("不能发送空白消息")
+            if text.characters.count == 0 {
+                print("不能发送空白消息")
                 return
             }
             

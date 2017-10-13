@@ -45,7 +45,7 @@ class TSChatActionBarView: UIView {
     
     @IBOutlet weak var inputTextView: UITextView! { didSet{
         inputTextView.font = UIFont.systemFont(ofSize: 17)
-        inputTextView.layer.borderColor = UIColor.init(ts_hexString:"#DADADA").cgColor
+        inputTextView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
         inputTextView.layer.borderWidth = 1
         inputTextView.layer.cornerRadius = 5.0
         inputTextView.scrollsToTop = false
@@ -114,7 +114,7 @@ class TSChatActionBarView: UIView {
     }
     
     deinit {
-        log.verbose("deinit")
+        print("deinit")
     }
 }
 

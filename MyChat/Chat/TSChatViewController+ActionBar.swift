@@ -23,18 +23,17 @@ extension TSChatViewController {
         
         //切换声音按钮
         voiceButton.onTap {
-            guard let strongSelf = self else { return }
-            strongSelf.chatActionBarView.resetButtonUI()
+            self.chatActionBarView.resetButtonUI()
             //根据不同的状态进行不同的键盘交互
-            let showRecoring = strongSelf.chatActionBarView.recordButton.isHidden
+            let showRecoring = self.chatActionBarView.recordButton.isHidden
             if showRecoring {
-                strongSelf.chatActionBarView.showRecording()
+                self.chatActionBarView.showRecording()
                 voiceButton.emotionSwiftVoiceButtonUI(showKeyboard: true)
-                strongSelf.controlExpandableInputView(showExpandable: false)
+                self.controlExpandableInputView(showExpandable: false)
             } else {
-                strongSelf.chatActionBarView.showTyingKeyboard()
+                self.chatActionBarView.showTyingKeyboard()
                 voiceButton.emotionSwiftVoiceButtonUI(showKeyboard: false)
-                strongSelf.controlExpandableInputView(showExpandable: true)
+                self.controlExpandableInputView(showExpandable: true)
             }
         }
         
@@ -43,68 +42,66 @@ extension TSChatViewController {
         var finishRecording: Bool = true  //控制滑动取消后的结果，决定停止录音还是取消录音
         recordButton.addLongPressGesture() { longTap in
 
-            if longTap.state == .began { //长按开始
-                finishRecording = true
-                strongSelf.voiceIndicatorView.recording()
-                AudioRecordInstance.startRecord()
-                recordButton.replaceRecordButtonUI(isRecording: true)
-            } else if longTap.state == .changed { //长按平移
-                let point = longTap.location(in: self!.voiceIndicatorView)
-                if strongSelf.voiceIndicatorView.point(inside: point, with: nil) {
-                    strongSelf.voiceIndicatorView.slideToCancelRecord()
-                    finishRecording = false
-                } else {
-                    strongSelf.voiceIndicatorView.recording()
-                    finishRecording = true
-                }
-            } else if longTap.state == .ended { //长按结束
-                if finishRecording {
-                    AudioRecordInstance.stopRecord()
-                } else {
-                    AudioRecordInstance.cancelRrcord()
-                }
-                strongSelf.voiceIndicatorView.endRecord()
-                recordButton.replaceRecordButtonUI(isRecording: false)
-            }
+//            if longTap.state == .began { //长按开始
+//                finishRecording = true
+//                strongSelf.voiceIndicatorView.recording()
+//                AudioRecordInstance.startRecord()
+//                recordButton.replaceRecordButtonUI(isRecording: true)
+//            } else if longTap.state == .changed { //长按平移
+//                let point = longTap.location(in: self!.voiceIndicatorView)
+//                if strongSelf.voiceIndicatorView.point(inside: point, with: nil) {
+//                    strongSelf.voiceIndicatorView.slideToCancelRecord()
+//                    finishRecording = false
+//                } else {
+//                    strongSelf.voiceIndicatorView.recording()
+//                    finishRecording = true
+//                }
+//            } else if longTap.state == .ended { //长按结束
+//                if finishRecording {
+//                    AudioRecordInstance.stopRecord()
+//                } else {
+//                    AudioRecordInstance.cancelRrcord()
+//                }
+//                strongSelf.voiceIndicatorView.endRecord()
+//                recordButton.replaceRecordButtonUI(isRecording: false)
+//            }
         }
         
         
         //表情按钮
         emotionButton.onTap {
-            guard let strongSelf = self else { return }
-            strongSelf.chatActionBarView.resetButtonUI()
+            self.chatActionBarView.resetButtonUI()
             //设置 button 的UI
             emotionButton.replaceEmotionButtonUI(showKeyboard: !emotionButton.showTypingKeyboard)
             //根据不同的状态进行不同的键盘交互
             if emotionButton.showTypingKeyboard {
-                strongSelf.chatActionBarView.showTyingKeyboard()
+                self.chatActionBarView.showTyingKeyboard()
             } else {
-                strongSelf.chatActionBarView.showEmotionKeyboard()
+                self.chatActionBarView.showEmotionKeyboard()
             }
             
-            strongSelf.controlExpandableInputView(showExpandable: true)
+            self.controlExpandableInputView(showExpandable: true)
         }
         
         
         //分享按钮
         shareButton.onTap {
-            guard let strongSelf = self else { return }
-            strongSelf.chatActionBarView.resetButtonUI()
+
+            self.chatActionBarView.resetButtonUI()
             //根据不同的状态进行不同的键盘交互
             if shareButton.showTypingKeyboard {
-                strongSelf.chatActionBarView.showTyingKeyboard()
+                self.chatActionBarView.showTyingKeyboard()
             } else {
-                strongSelf.chatActionBarView.showShareKeyboard()
+                self.chatActionBarView.showShareKeyboard()
             }
-            
-            strongSelf.controlExpandableInputView(showExpandable: true)
+            self.controlExpandableInputView(showExpandable: true)
         }
 
         
         //文字框的点击，唤醒键盘
         let textView: UITextView = self.chatActionBarView.inputTextView
 
-        textView.addGestureRecognizer(){ _ in
+        textView.addTapGesture() {_ in 
             textView.inputView = nil
             textView.becomeFirstResponder()
             textView.reloadInputViews()

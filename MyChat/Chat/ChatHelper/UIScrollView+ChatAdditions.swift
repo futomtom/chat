@@ -34,29 +34,29 @@ extension UIScrollView {
     }
     
     /// The vertical scroll indicator view.
-    public var verticalScroller: UIView {
-        get {
-            if (objc_getAssociatedObject(self, #function) == nil) {
-                objc_setAssociatedObject(self, #function, self.safeValueForKey(AssociatedKeys.kKeyScrollViewVerticalIndicator), objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN);
-            }
-            return objc_getAssociatedObject(self, #function) as! UIView
-        }
-    }
+//    public var verticalScroller: UIView {
+//        get {
+//            if (objc_getAssociatedObject(self, #function) == nil) {
+//                objc_setAssociatedObject(self, #function, self.safeValueForKey(AssociatedKeys.kKeyScrollViewVerticalIndicator), objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN);
+//            }
+//            return objc_getAssociatedObject(self, #function) as! UIView
+//        }
+//    }
 
-    /// The horizontal scroll indicator view.
-    public var horizontalScroller: UIView {
-        get {
-            if (objc_getAssociatedObject(self, #function) == nil) {
-                objc_setAssociatedObject(self, #function, self.safeValueForKey(AssociatedKeys.kKeyScrollViewHorizontalIndicator), objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN);
-            }
-            return objc_getAssociatedObject(self, #function) as! UIView
-        }
-    }
+//    /// The horizontal scroll indicator view.
+//    public var horizontalScroller: UIView {
+//        get {
+//            if (objc_getAssociatedObject(self, #function) == nil) {
+//                objc_setAssociatedObject(self, #function, self.safeValueForKey(AssociatedKeys.kKeyScrollViewHorizontalIndicator), objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN);
+//            }
+//            return objc_getAssociatedObject(self, #function) as! UIView
+//        }
+//    }
     
-    fileprivate func safeValueForKey(_ key: String) -> AnyObject{
-        let instanceVariable: Ivar = class_getInstanceVariable(type(of: self), key.cString(using: String.Encoding.utf8)!)
-        return object_getIvar(self, instanceVariable) as AnyObject;
-    }
+//    fileprivate func safeValueForKey(_ key: String) -> AnyObject{
+//        let instanceVariable: Ivar = class_getInstanceVariable(type(of: self), key.cString(using: String.Encoding.utf8)!)
+//        return object_getIvar(self, instanceVariable) as AnyObject;
+//    }
     
 
      /**

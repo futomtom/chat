@@ -12,5 +12,20 @@ struct MessageModel: Codable {
     var latestMessage : String? //当且仅当消息类型为 Text 的时候，才有数据，其他类型需要本地造
     var dateString: String?
 
+    var lastMessage: String? { get {
+        switch (self.messageContentType) {
+        case .Text, .System:
+            return self.latestMessage
+        case .Image:
+            return "[图片]"
+        case .Voice:
+            return "[语音]"
+        case .File:
+            return "[文件]"
+        default:
+            return ""
+        }}
+    }
+    
 }
 

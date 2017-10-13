@@ -16,44 +16,44 @@ extension TSChatViewController: ChatShareMoreViewDelegate {
    
     //选择打开相册
     func chatShareMoreViewPhotoTaped() {
-        self.ts_presentImagePickerController(
-            maxNumberOfSelections: 1,
-            select: { (asset: PHAsset) -> Void in
-                print("Selected: \(asset)")
-            }, deselect: { (asset: PHAsset) -> Void in
-                print("Deselected: \(asset)")
-            }, cancel: { (assets: [PHAsset]) -> Void in
-                print("Cancel: \(assets)")
-            }, finish: {[weak self] (assets: [PHAsset]) -> Void in
-                print("Finish: \(assets.get(index: 0))")
-                guard let strongSelf = self else { return }
-                if let image = assets.get(index: 0).getUIImage() {
-                    strongSelf.resizeAndSendImage(image)
-                }
-            }, completion: { () -> Void in
-                print("completion")
-        })
+//        self.ts_presentImagePickerController(
+//            maxNumberOfSelections: 1,
+//            select: { (asset: PHAsset) -> Void in
+//                print("Selected: \(asset)")
+//            }, deselect: { (asset: PHAsset) -> Void in
+//                print("Deselected: \(asset)")
+//            }, cancel: { (assets: [PHAsset]) -> Void in
+//                print("Cancel: \(assets)")
+//            }, finish: {[weak self] (assets: [PHAsset]) -> Void in
+//                print("Finish: \(assets.get(index: 0))")
+//                guard let strongSelf = self else { return }
+//                if let image = assets.get(index: 0).getUIImage() {
+//                    strongSelf.resizeAndSendImage(image)
+//                }
+//            }, completion: { () -> Void in
+//                print("completion")
+//        })
     }
     
     //选择打开相机
     func chatShareMoreViewCameraTaped() {
-        let authStatus: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        if authStatus == .notDetermined {
-            self.checkCameraPermission()
-        } else if authStatus == .restricted || authStatus == .denied {
-            TSAlertView_show("无法访问您的相机", message: "请到设置 -> 隐私 -> 相机 ，打开访问权限" )
-        } else if authStatus == .authorized {
-            self.openCamera()
-        }
+//        let authStatus: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: AVMediaTypeVideo)
+//        if authStatus == .notDetermined {
+//            self.checkCameraPermission()
+//        } else if authStatus == .restricted || authStatus == .denied {
+//            TSAlertView_show("无法访问您的相机", message: "请到设置 -> 隐私 -> 相机 ，打开访问权限" )
+//        } else if authStatus == .authorized {
+//            self.openCamera()
+//        }
     }
     
     
     func checkCameraPermission () {
-        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {granted in
-            if !granted {
-                TSAlertView_show("无法访问您的相机", message: "请到设置 -> 隐私 -> 相机 ，打开访问权限" )
-            }
-        })
+//        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {granted in
+//            if !granted {
+//                TSAlertView_show("无法访问您的相机", message: "请到设置 -> 隐私 -> 相机 ，打开访问权限" )
+//            }
+//        })
     }
     
     func openCamera() {
@@ -65,42 +65,42 @@ extension TSChatViewController: ChatShareMoreViewDelegate {
     
     //处理图片，并且发送图片消息
     func resizeAndSendImage(_ theImage: UIImage) {
-        let originalImage = UIImage.ts_fixImageOrientation(theImage)
-        let storeKey = "send_image"+String(format: "%f", Date.milliseconds)
-        let thumbSize = ChatConfig.getThumbImageSize(originalImage.size)
-        
-        //获取缩略图失败 ，抛出异常：发送失败
-        guard let thumbNail = originalImage.ts_resize(thumbSize) else { return }
-        ImageFilesManager.storeImage(thumbNail, key: storeKey, completionHandler: { [weak self] in
-            guard let strongSelf = self else { return }
-            //发送图片消息
-            let sendImageModel = ChatImageModel()
-            sendImageModel.imageHeight = originalImage.size.height
-            sendImageModel.imageWidth = originalImage.size.width
-            sendImageModel.localStoreName = storeKey
-            strongSelf.chatSendImage(sendImageModel)
-            
-            /**
-            *  异步上传原图, 然后上传成功后，把 model 值改掉
-            *  但因为还没有找到上传的 API，所以这个函数会返回错误  T.T
-            * //TODO: 原图尺寸略大，需要剪裁
-            */
-            HttpManager.uploadSingleImage(originalImage, success: {model in
-                //修改 sendImageModel 的值
-                sendImageModel.imageHeight = model.originalHeight
-                sendImageModel.imageWidth = model.originalWidth
-                sendImageModel.thumbURL = model.thumbURL
-                sendImageModel.originalURL = model.originalURL
-                sendImageModel.imageId = String(describing: model.imageId)
-                
-                //修改缩略图的名称
-                let tempStorePath = URL(string:ImageFilesManager.cachePathForKey(storeKey)!)
-                let targetStorePath = URL(string:ImageFilesManager.cachePathForKey(sendImageModel.thumbURL!)!)
-                ImageFilesManager.renameFile(tempStorePath!, destinationPath: targetStorePath!)
-            }, failure: {
-                    
-            })
-        })
+//        let originalImage = UIImage.ts_fixImageOrientation(theImage)
+//        let storeKey = "send_image"+String(format: "%f", Date.milliseconds)
+//        let thumbSize = ChatConfig.getThumbImageSize(originalImage.size)
+//
+//        //获取缩略图失败 ，抛出异常：发送失败
+//        guard let thumbNail = originalImage.ts_resize(thumbSize) else { return }
+//        ImageFilesManager.storeImage(thumbNail, key: storeKey, completionHandler: { [weak self] in
+//            guard let strongSelf = self else { return }
+//            //发送图片消息
+//            let sendImageModel = ChatImageModel()
+//            sendImageModel.imageHeight = originalImage.size.height
+//            sendImageModel.imageWidth = originalImage.size.width
+//            sendImageModel.localStoreName = storeKey
+//            strongSelf.chatSendImage(sendImageModel)
+//
+//            /**
+//            *  异步上传原图, 然后上传成功后，把 model 值改掉
+//            *  但因为还没有找到上传的 API，所以这个函数会返回错误  T.T
+//            * //TODO: 原图尺寸略大，需要剪裁
+//            */
+//            HttpManager.uploadSingleImage(originalImage, success: {model in
+//                //修改 sendImageModel 的值
+//                sendImageModel.imageHeight = model.originalHeight
+//                sendImageModel.imageWidth = model.originalWidth
+//                sendImageModel.thumbURL = model.thumbURL
+//                sendImageModel.originalURL = model.originalURL
+//                sendImageModel.imageId = String(describing: model.imageId)
+//
+//                //修改缩略图的名称
+//                let tempStorePath = URL(string:ImageFilesManager.cachePathForKey(storeKey)!)
+//                let targetStorePath = URL(string:ImageFilesManager.cachePathForKey(sendImageModel.thumbURL!)!)
+//                ImageFilesManager.renameFile(tempStorePath!, destinationPath: targetStorePath!)
+//            }, failure: {
+//
+//            })
+//        })
 
     }
 }
@@ -140,7 +140,7 @@ extension TSChatViewController: RecordAudioDelegate {
         self.voiceIndicatorView.endRecord()
         
         //发送本地音频
-        let audioModel = ChatAudioModel()
+        var audioModel = ChatAudioModel()
         audioModel.keyHash = fileHash
         audioModel.audioURL = ""
         audioModel.duration = recordTime
@@ -150,13 +150,13 @@ extension TSChatViewController: RecordAudioDelegate {
         *  异步上传音频文件, 然后上传成功后，把 model 值改掉
         *  因为还没有上传的 API，所以这个函数会返回错误  T.T
         */
-        HttpManager.uploadAudio(uploadAmrData, recordTime: String(recordTime), success: {model in
-            audioModel.keyHash = model.keyHash
-            audioModel.audioURL = model.audioURL
-            audioModel.duration = recordTime
-        }, failure: {
-        
-        })
+//        HttpManager.uploadAudio(uploadAmrData, recordTime: String(recordTime), success: {model in
+//            audioModel.keyHash = model.keyHash
+//            audioModel.audioURL = model.audioURL
+//            audioModel.duration = recordTime
+//        }, failure: {
+//
+//        })
     }
     
     func audioRecordFailed() {
@@ -248,7 +248,7 @@ extension TSChatViewController: UITextViewDelegate {
         
         //使 UITextView 滚动到末尾的区域
         UIView.setAnimationsEnabled(false)
-        let range = NSMakeRange(textView.text.length - 1, 1)
+        let range = NSMakeRange(textView.text.characters.count - 1, 1)
         textView.scrollRangeToVisible(range)
         UIView.setAnimationsEnabled(true)
         return true
@@ -283,8 +283,8 @@ extension TSChatViewController: TSChatCellDelegate {
      点击了 cell 中文字的 URL
      */
     func cellDidTapedLink(_ cell: TSChatBaseCell, linkString: String) {
-        let viewController = TSWebViewController(URLString: linkString)
-        self.ts_pushAndHideTabbar(viewController)
+//        let viewController = TSWebViewController(URLString: linkString)
+//        self.ts_pushAndHideTabbar(viewController)
     }
     
     /**
@@ -305,7 +305,7 @@ extension TSChatViewController: TSChatCellDelegate {
         
         if isPlayingVoice {
             self.currentVoiceCell = cell
-            guard let audioModel = cell.model!.audioModel else {
+            guard let audioModel = cell.model!.chat?.audioModel else {
                 AudioPlayInstance.stopPlayer()
                 return
             }

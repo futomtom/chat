@@ -32,7 +32,7 @@ class TSWebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.init(ts_hexString: "#2D3132")
+        self.view.backgroundColor = UIColor.red
         
         let preferences = WKPreferences()
         preferences.javaScriptEnabled = false

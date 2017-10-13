@@ -85,7 +85,7 @@ final class TSChatViewController: UIViewController {
     }
     
     deinit {
-        log.verbose("deinit")
+        print("deinit")
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,13 +114,13 @@ extension TSChatViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let chatModel = self.itemDataSouce.get(index: indexPath.row) else {return 0}
+        guard let chatModel = self.itemDataSouce[indexPath.row] else {return 0}
         let type: MessageContentType = chatModel.messageContentType
         return type.chatCellHeight(chatModel)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let chatModel = self.itemDataSouce.get(index: indexPath.row) else {return TSChatBaseCell()}
+        guard let chatModel = self.itemDataSouce[indexPath.row] else {return TSChatBaseCell()}
         let type: MessageContentType = chatModel.messageContentType
         return type.chatCell(tableView, indexPath: indexPath, model: chatModel, viewController: self)!
     }
