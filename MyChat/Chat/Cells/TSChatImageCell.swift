@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Closures
 
 
 let kChatImageMaxWidth: CGFloat = 125 //最大的图片宽度
@@ -27,14 +28,14 @@ class TSChatImageCell: TSChatBaseCell {
         let tap = UITapGestureRecognizer()
         self.chatImageView.addGestureRecognizer(tap)
         self.chatImageView.isUserInteractionEnabled = true
-        tap.rx.event.subscribe {[weak self] _ in
+        self.addTapGesture() {
             if let strongSelf = self {
                 guard let delegate = strongSelf.delegate else {
                     return
                 }
                 delegate.cellDidTapedImageView(strongSelf)
             }
-        }.addDisposableTo(self.disposeBag)
+        }
     }
     
     override func setCellContent(_ model: ChatModel) {

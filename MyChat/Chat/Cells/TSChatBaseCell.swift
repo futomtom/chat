@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Closures
 
 
 private let kChatNicknameLabelHeight: CGFloat = 20  //昵称 label 的高度
@@ -28,7 +29,7 @@ class TSChatBaseCell: UITableViewCell {
         nicknameLabel.textColor = UIColor.darkGray
         }}
     var model: ChatModel?
-    let disposeBag = DisposeBag()
+
 
     override func prepareForReuse() {
         self.avatarImageView.image = nil
@@ -46,14 +47,14 @@ class TSChatBaseCell: UITableViewCell {
         let tap = UITapGestureRecognizer()
         self.avatarImageView.addGestureRecognizer(tap)
         self.avatarImageView.isUserInteractionEnabled = true
-        tap.rx.event.subscribe{[weak self ] _ in
+        self.addTapGesture() { _ in
             if let strongSelf = self {
                 guard let delegate = strongSelf.delegate else {
                     return
                 }
                 delegate.cellDidTapedAvatarImage(strongSelf)
             }
-        }.addDisposableTo(self.disposeBag)
+        }
     }
     
     func setCellContent(_ model: ChatModel) {

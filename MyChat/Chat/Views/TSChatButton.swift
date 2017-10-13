@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class TSChatButton: UIButton {
     var showTypingKeyboard: Bool

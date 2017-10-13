@@ -8,7 +8,7 @@
 
 import Foundation
 import AVFoundation
-import TSVoiceConverter
+
 
 //private let soundPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
 let kAudioFileTypeWav = "wav"
@@ -55,11 +55,11 @@ class AudioRecordManager: NSObject {
                     }
                 }
             } catch let error as NSError {
-                log.error("Could not activate the audio session:\(error)")
+                print("Could not activate the audio session:\(error)")
                 TSAlertView_show("无法访问您的麦克风", message: error.localizedFailureReason!)
             }
         } catch let error as NSError {
-            log.error("An error occurred in setting the audio ,session category. Error = \(error)")
+            print("An error occurred in setting the audio ,session category. Error = \(error)")
             TSAlertView_show("无法访问您的麦克风", message: error.localizedFailureReason!)
         }
     }
@@ -73,14 +73,14 @@ class AudioRecordManager: NSObject {
         if currentRoute.outputs.count > 0 {
             for description in currentRoute.outputs {
                 if description.portType == AVAudioSessionPortHeadphones {
-                    log.info("headphones are plugged in")
+                    print("headphones are plugged in")
                     break
                 } else {
-                    log.info("headphones are unplugged")
+                    print("headphones are unplugged")
                 }
             }
         } else {
-            log.info("checking headphones requires a connection to a device")
+            print("checking headphones requires a connection to a device")
         }
     }
     
@@ -110,7 +110,7 @@ class AudioRecordManager: NSObject {
             self.recorder.prepareToRecord() // creates/overwrites the file at soundFileURL
         } catch let error as NSError {
             self.recorder = nil
-            log.error("error localizedDescription:\(error.localizedDescription)")
+            print("error localizedDescription:\(error.localizedDescription)")
             TSAlertView_show("初始化录音功能失败", message: error.localizedDescription)
         }
         self.perform(#selector(AudioRecordManager.readyStartRecord), with: self, afterDelay: 0.0)
@@ -119,12 +119,12 @@ class AudioRecordManager: NSObject {
     /**
      准备录音
      */
-    func readyStartRecord() {
+    @objc func readyStartRecord() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryRecord)
         } catch let error as NSError  {
-            log.error("setActive fail:\(error)")
+            print("setActive fail:\(error)")
             TSAlertView_show("无法访问您的麦克风", message: error.localizedDescription)
             return
         }
@@ -132,7 +132,7 @@ class AudioRecordManager: NSObject {
         do {
             try audioSession.setActive(true)
         } catch let error as NSError {
-            log.error("setActive fail:\(error)")
+            print("setActive fail:\(error)")
             TSAlertView_show("无法访问您的麦克风", message: error.localizedDescription)
             return
         }
@@ -173,10 +173,10 @@ class AudioRecordManager: NSObject {
         self.isCancelRecord = false
         self.endTimer = CACurrentMediaTime()
         if (self.endTimer - self.startTime) < 0.5 {
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(AudioRecordManager.readyStartRecord), object: self)
-            dispatch_async_safely_to_main_queue({ () -> () in
-                self.delegate?.audioRecordTooShort()
-            })
+//            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(AudioRecordManager.readyStartRecord), object: self)
+//            dispatch_async_safely_to_main_queue({ () -> () in
+//                self.delegate?.audioRecordTooShort()
+//            })
         } else {
             self.audioTimeInterval = NSNumber(value: NSNumber(value: self.recorder.currentTime as Double).int32Value as Int32)
             if self.audioTimeInterval.int32Value < 1 {
@@ -201,14 +201,14 @@ class AudioRecordManager: NSObject {
         self.delegate?.audioRecordCanceled()
     }
     
-    func readyStopRecord() {
+    @objc func readyStopRecord() {
         self.recorder.stop()
         self.recorder = nil
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setActive(false, with: .notifyOthersOnDeactivation)
         } catch let error as NSError {
-            log.error("error:\(error)")
+            print("error:\(error)")
         }
     }
     
@@ -224,38 +224,38 @@ class AudioRecordManager: NSObject {
 // MARK: - @protocol AVAudioRecorderDelegate
 extension AudioRecordManager : AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        if flag && self.isFinishRecord {
-            //转换 amr 音频文件
-            if TSVoiceConverter.convertWavToAmr(TempWavRecordPath.path, amrSavePath: TempAmrFilePath.path) {
-                //获取 amr 文件的 NSData, 改名字使用
-                guard let amrAudioData = try? Data(contentsOf: TempAmrFilePath) else {
-                    self.delegate?.audioRecordFailed()
-                    return
-                }
-                let fileName = amrAudioData.ts_md5String
-                let amrDestinationURL = AudioFilesManager.amrPathWithName(fileName)
-                log.warning("amr destination URL:\(amrDestinationURL)")
-                AudioFilesManager.renameFile(TempAmrFilePath, destinationPath: amrDestinationURL)
-                
-                //缓存：将录音 temp 文件改名为 amr 文件 NSData 的 md5 值
-                let wavDestinationURL = AudioFilesManager.wavPathWithName(fileName)
-                AudioFilesManager.renameFile(TempWavRecordPath, destinationPath: wavDestinationURL)
-                
-                self.delegate?.audioRecordFinish(amrAudioData, recordTime: self.audioTimeInterval.floatValue, fileHash: fileName)
-            } else {
-                self.delegate?.audioRecordFailed()
-            }
-        } else {
-            //如果不是取消录音，再进行回调 failed 方法
-            if !self.isCancelRecord {
-                self.delegate?.audioRecordFailed()
-            }
-        }
+//        if flag && self.isFinishRecord {
+//            //转换 amr 音频文件
+//            if TSVoiceConverter.convertWavToAmr(TempWavRecordPath.path, amrSavePath: TempAmrFilePath.path) {
+//                //获取 amr 文件的 NSData, 改名字使用
+//                guard let amrAudioData = try? Data(contentsOf: TempAmrFilePath) else {
+//                    self.delegate?.audioRecordFailed()
+//                    return
+//                }
+//             //   let fileName = amrAudioData.ts_md5String
+//                let amrDestinationURL = AudioFilesManager.amrPathWithName(fileName)
+//                log.warning("amr destination URL:\(amrDestinationURL)")
+//                AudioFilesManager.renameFile(TempAmrFilePath, destinationPath: amrDestinationURL)
+//                
+//                //缓存：将录音 temp 文件改名为 amr 文件 NSData 的 md5 值
+//                let wavDestinationURL = AudioFilesManager.wavPathWithName(fileName)
+//                AudioFilesManager.renameFile(TempWavRecordPath, destinationPath: wavDestinationURL)
+//                
+//                self.delegate?.audioRecordFinish(amrAudioData, recordTime: self.audioTimeInterval.floatValue, fileHash: fileName)
+//            } else {
+//                self.delegate?.audioRecordFailed()
+//            }
+//        } else {
+//            //如果不是取消录音，再进行回调 failed 方法
+//            if !self.isCancelRecord {
+//                self.delegate?.audioRecordFailed()
+//            }
+//        }
     }
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
         if let e = error {
-            log.error("\(e.localizedDescription)")
+            print("\(e.localizedDescription)")
             self.delegate?.audioRecordFailed()
         }
     }

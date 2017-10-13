@@ -38,7 +38,7 @@ final class TSChatViewController: UIViewController {
     var emotionInputView: TSChatEmotionInputView! //表情键盘
     var shareMoreView: TSChatShareMoreView!    //分享键盘
     var voiceIndicatorView: TSChatVoiceIndicatorView! //声音的显示 View
-    let disposeBag = DisposeBag()
+ 
     var imagePicker: UIImagePickerController!   //照相机
     var itemDataSouce = [ChatModel]()
     var isReloading: Bool = false               //UITableView 是否正在加载数据, 如果是，把当前发送的消息缓存起来后再进行发送
@@ -132,7 +132,7 @@ extension TSChatViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (scrollView.contentOffset.y < kChatLoadMoreOffset) {
             if self.isEndRefreshing {
-                log.info("pull to refresh");
+                print("pull to refresh");
                 self.pullToLoadMore()
             }
         }
@@ -145,7 +145,7 @@ extension TSChatViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y - scrollView.contentInset.top < kChatLoadMoreOffset) {
             if self.isEndRefreshing {
-                log.info("pull to refresh");
+                print("pull to refresh");
                 self.pullToLoadMore()
             }
         }

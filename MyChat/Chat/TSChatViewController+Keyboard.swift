@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 //http://stackoverflow.com/questions/4279730/keep-uitableview-static-when-inserting-rows-at-the-top/11602040#11602040 Keep uitableview static when inserting rows at the top
 

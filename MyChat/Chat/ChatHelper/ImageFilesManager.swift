@@ -42,7 +42,7 @@ class ImageFilesManager {
             try FileManager.default.moveItem(atPath: originPath.path, toPath: destinationPath.path)
             return true
         } catch let error as NSError {
-            log.error("error:\(error)")
+            print("error:\(error)")
             return false
         }
     }

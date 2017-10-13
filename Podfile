@@ -10,4 +10,6 @@ target 'MyChat' do
   pod 'SwiftyJSON', '3.1.3'
   pod 'Closures'
   pod 'SnapKit'
+  pod 'Alamofire'
+  pod 'Kingfisher'
 end

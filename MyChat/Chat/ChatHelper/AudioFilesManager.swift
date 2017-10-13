@@ -55,7 +55,7 @@ class AudioFilesManager {
             try FileManager.default.moveItem(atPath: originPath.path, toPath: destinationPath.path)
             return true
         } catch let error as NSError {
-            log.error("error:\(error)")
+            print("error:\(error)")
             return false
         }
     }
@@ -73,7 +73,7 @@ class AudioFilesManager {
                 try fileManager.createDirectory(atPath: folder.path, withIntermediateDirectories: true, attributes: nil)
                 return folder
             } catch let error as NSError {
-                log.error("error:\(error)")
+                print("error:\(error)")
             }
         }
         return folder
@@ -112,17 +112,17 @@ class AudioFilesManager {
             })
             for i in 0 ..< recordings.count {
                 let path = path + "/" + recordings[i]
-                log.info("removing \(path)")
+                print("removing \(path)")
                 do {
                     try fileManager.removeItem(atPath: path)
                 } catch let error as NSError {
-                    log.info("could not remove \(path)")
-                    log.info(error.localizedDescription)
+                    print("could not remove \(path)")
+                    print(error.localizedDescription)
                 }
             }
         } catch let error as NSError {
-            log.info("could not get contents of directory at \(path)")
-            log.info(error.localizedDescription)
+            print("could not get contents of directory at \(path)")
+            print(error.localizedDescription)
         }
     }
 }

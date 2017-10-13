@@ -50,7 +50,7 @@ class TSChatTextParser: NSObject {
             
             let highlightBorder = TSChatTextParseHelper.highlightBorder
             if (attributedText.yy_attribute(YYTextHighlightAttributeName, at: UInt(phone.range.location)) == nil) {
-                attributedText.yy_setColor(UIColor.init(ts_hexString: "#1F79FD"), range: phone.range)
+                attributedText.yy_setColor(UIColor(red:0.12, green:0.47, blue:0.99, alpha:1.0), range: phone.range)
                 let highlight = YYTextHighlight()
                 highlight.setBackgroundBorder(highlightBorder)
                 
@@ -79,7 +79,7 @@ class TSChatTextParser: NSObject {
             
             let highlightBorder = TSChatTextParseHelper.highlightBorder
             if (attributedText.yy_attribute(YYTextHighlightAttributeName, at: UInt(URL.range.location)) == nil) {
-                attributedText.yy_setColor(UIColor.init(ts_hexString: "#1F79FD"), range: URL.range)
+                attributedText.yy_setColor(UIColor(red:0.12, green:0.47, blue:0.99, alpha:1.0), range: URL.range)
                 let highlight = YYTextHighlight()
                 highlight.setBackgroundBorder(highlightBorder)
 
@@ -135,7 +135,7 @@ class TSChatTextParseHelper {
         get {
             let highlightBorder = YYTextBorder()
             highlightBorder.insets = UIEdgeInsetsMake(-2, 0, -2, 0)
-            highlightBorder.fillColor = UIColor.init(ts_hexString: "#D4D1D1")
+            highlightBorder.fillColor = UIColor(red:0.83, green:0.82, blue:0.82, alpha:1.0)
             return highlightBorder
         }
     }
@@ -178,14 +178,16 @@ class TSChatTextParseHelper {
 
 
 private extension String {
-    func nsRange(from range: Range<String.Index>) -> NSRange {
-        let utf16view = self.utf16
-        let from = range.lowerBound.samePosition(in: utf16view)
-        let to = range.upperBound.samePosition(in: utf16view)
-        return NSMakeRange(utf16view.distance(from: utf16view.startIndex, to: from),
-                           utf16view.distance(from: from, to: to))
-    }
-    
+        func nsRange(nsRange: NSRange) -> NSRange? {
+            guard
+                let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),
+                let to16 = utf16.index(utf16.startIndex, offsetBy: nsRange.length, limitedBy: utf16.endIndex),
+                let from = from16.samePosition(in: self),
+                let to = to16.samePosition(in: self)
+                else { return nil }
+            return NSMakeRange(from.encodedOffset, to.encodedOffset)
+        }
+
     func range(from nsRange: NSRange) -> Range<String.Index>? {
         guard
             let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),

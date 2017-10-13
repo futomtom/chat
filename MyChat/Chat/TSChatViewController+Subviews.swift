@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import Closures
 
 private let kCustomKeyboardHeight: CGFloat = 216
 
@@ -27,10 +29,10 @@ extension TSChatViewController {
         let tap = UITapGestureRecognizer()
         tap.cancelsTouchesInView = false
         self.listTableView.addGestureRecognizer(tap)
-        tap.rx.event.subscribe {[weak self] _ in
+        self.addTapGesture() {[weak self] _ in
             guard let strongSelf = self else { return }
             strongSelf.hideAllKeyboard()
-        }.addDisposableTo(self.disposeBag)
+        }
         
         self.view.addSubview(self.listTableView)
         

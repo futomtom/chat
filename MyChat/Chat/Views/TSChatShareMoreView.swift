@@ -30,7 +30,7 @@ class TSChatShareMoreView: UIView {
         }}
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     weak var delegate: ChatShareMoreViewDelegate?
-    internal let disposeBag = DisposeBag()
+
 
     fileprivate let itemDataSouce: [(name: String, iconImage: UIImage)] = [
         ("照片", TSAsset.Sharemore_pic.image),

@@ -1,0 +1,14 @@
+//
+//  MyChat.pch
+//  
+//
+//  Created by Alex on 10/13/17.
+//
+
+#ifndef MyChat_pch
+#define MyChat_pch
+
+@import Foundation
+@import UIKit
+
+#endif /* MyChat_pch */

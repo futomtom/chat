@@ -22,7 +22,7 @@ extension TSChatViewController {
         let shareButton: TSChatButton = self.chatActionBarView.shareButton
         
         //切换声音按钮
-        voiceButton.onTap {[weak self] _ in
+        voiceButton.onTap {
             guard let strongSelf = self else { return }
             strongSelf.chatActionBarView.resetButtonUI()
             //根据不同的状态进行不同的键盘交互
@@ -36,13 +36,13 @@ extension TSChatViewController {
                 voiceButton.emotionSwiftVoiceButtonUI(showKeyboard: false)
                 strongSelf.controlExpandableInputView(showExpandable: true)
             }
-        }.addDisposableTo(self.disposeBag)
+        }
         
         
         //录音按钮
         var finishRecording: Bool = true  //控制滑动取消后的结果，决定停止录音还是取消录音
-        recordButton.addLongPressGesture {[weak self] _ in
-            guard let strongSelf = self else { return }
+        recordButton.addLongPressGesture() { longTap in
+
             if longTap.state == .began { //长按开始
                 finishRecording = true
                 strongSelf.voiceIndicatorView.recording()
@@ -66,11 +66,11 @@ extension TSChatViewController {
                 strongSelf.voiceIndicatorView.endRecord()
                 recordButton.replaceRecordButtonUI(isRecording: false)
             }
-        }.addDisposableTo(self.disposeBag)
+        }
         
         
         //表情按钮
-        emotionButton.onTap {[weak self] _ in
+        emotionButton.onTap {
             guard let strongSelf = self else { return }
             strongSelf.chatActionBarView.resetButtonUI()
             //设置 button 的UI
@@ -83,11 +83,11 @@ extension TSChatViewController {
             }
             
             strongSelf.controlExpandableInputView(showExpandable: true)
-        }.addDisposableTo(self.disposeBag)
+        }
         
         
         //分享按钮
-        shareButton.onTap {[weak self] _ in
+        shareButton.onTap {
             guard let strongSelf = self else { return }
             strongSelf.chatActionBarView.resetButtonUI()
             //根据不同的状态进行不同的键盘交互
@@ -98,18 +98,17 @@ extension TSChatViewController {
             }
             
             strongSelf.controlExpandableInputView(showExpandable: true)
-        }.addDisposableTo(self.disposeBag)
+        }
 
         
         //文字框的点击，唤醒键盘
         let textView: UITextView = self.chatActionBarView.inputTextView
-        let tap = UITapGestureRecognizer()
-        textView.addGestureRecognizer(tap)
-        tap.rx.event.subscribe { _ in
+
+        textView.addGestureRecognizer(){ _ in
             textView.inputView = nil
             textView.becomeFirstResponder()
             textView.reloadInputViews()
-        }.addDisposableTo(self.disposeBag)
+        }
     }
     
     /**

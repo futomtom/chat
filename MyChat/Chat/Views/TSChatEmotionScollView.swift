@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 
 class TSChatEmotionScollView: UICollectionView {
     fileprivate var touchBeganTime: TimeInterval = 0

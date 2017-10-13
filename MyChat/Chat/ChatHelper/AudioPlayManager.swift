@@ -9,7 +9,6 @@
 import Foundation
 import AVFoundation
 import Alamofire
-import TSVoiceConverter
 
 let AudioPlayInstance = AudioPlayManager.sharedInstance
 
@@ -28,18 +27,18 @@ class AudioPlayManager: NSObject {
         super.init()
         //监听听筒和扬声器
         let notificationCenter = NotificationCenter.default
-        notificationCenter.ts_addObserver(self, name: NSNotification.Name.UIDeviceProximityStateDidChange.rawValue, object: UIDevice.current, handler: {
-            observer, notification in
-            if UIDevice.current.proximityState {
-                do {
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-                } catch _ {}
-            } else {
-                do {
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-                } catch _ {}
-            }
-        })
+//        notificationCenter.ts_addObserver(self, name: NSNotification.Name.UIDeviceProximityStateDidChange.rawValue, object: UIDevice.current, handler: {
+//            observer, notification in
+//            if UIDevice.current.proximityState {
+//                do {
+//                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+//                } catch _ {}
+//            } else {
+//                do {
+//                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+//                } catch _ {}
+//            }
+//        })
     }
     
     func startPlaying(_ audioModel: ChatAudioModel) {
@@ -83,7 +82,7 @@ class AudioPlayManager: NSObject {
             player.prepareToPlay()
             
             guard let delegate = self.delegate else {
-                log.error("delegate is nil")
+                print("delegate is nil")
                 return
             }
             
@@ -118,20 +117,20 @@ class AudioPlayManager: NSObject {
             self.stopPlayer()
         }
         
-        guard let fileName = audioModel.keyHash, fileName.length > 0 else { return}
+        guard let fileName = audioModel.keyHash, fileName.characters.count > 0 else { return}
 
         let amrPathString = AudioFilesManager.amrPathWithName(fileName).path
         let wavPathString = AudioFilesManager.wavPathWithName(fileName).path        
         if FileManager.default.fileExists(atPath: wavPathString) {
             self.playSoundWithPath(wavPathString)
         } else {
-            if TSVoiceConverter.convertAmrToWav(amrPathString, wavSavePath: wavPathString) {
-                self.playSoundWithPath(wavPathString)
-            } else {
-                if let delegate = self.delegate {
-                    delegate.audioPlayFailed()
-                }
-            }
+//            if TSVoiceConverter.convertAmrToWav(amrPathString, wavSavePath: wavPathString) {
+//                self.playSoundWithPath(wavPathString)
+//            } else {
+//                if let delegate = self.delegate {
+//                    delegate.audioPlayFailed()
+//                }
+//            }
         }
     }
     
@@ -142,12 +141,12 @@ class AudioPlayManager: NSObject {
         let fileName = audioModel.keyHash!
         let filePath = AudioFilesManager.amrPathWithName(fileName)
         let destination: (URL, HTTPURLResponse) -> (URL) = { (temporaryURL, response)  in
-            log.info("checkAndDownloadAudio response:\(response)")
+            print("checkAndDownloadAudio response:\(response)")
             if response.statusCode == 200 {
                 if FileManager.default.fileExists(atPath: filePath.path) {
                     try! FileManager.default.removeItem(at: filePath)
                 }
-                log.info("filePath:\(filePath)")
+                print("filePath:\(filePath)")
                 return filePath
             } else {
                 return temporaryURL
@@ -160,10 +159,10 @@ class AudioPlayManager: NSObject {
             }
             .responseData { response in
                 if let error = response.result.error, let delegate = self.delegate {
-                    log.error("Failed with error: \(error)")
+                    print("Failed with error: \(error)")
                     delegate.audioPlayFailed()
                 } else {
-                    log.info("Downloaded file successfully")
+                    print("Downloaded file successfully")
                     self.convertAmrToWavAndPlaySound(audioModel)
                 }
         }
@@ -173,7 +172,7 @@ class AudioPlayManager: NSObject {
 // MARK: - @protocol AVAudioPlayerDelegate
 extension AudioPlayManager: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        log.info("Finished playing the song")
+        print("Finished playing the song")
         UIDevice.current.isProximityMonitoringEnabled = false
         if flag {
             self.delegate?.audioPlayFinished()

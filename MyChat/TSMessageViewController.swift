@@ -106,7 +106,7 @@ extension TSMessageViewController: UITableViewDataSource {
 // MARK: - @protocol ActionFloatViewDelegate
 extension TSMessageViewController: ActionFloatViewDelegate {
     func floatViewTapItemIndex(_ type: ActionFloatViewItemType) {
-        log.info("floatViewTapItemIndex:\(type)")
+        print("floatViewTapItemIndex:\(type)")
         switch type {
         case .groupChat:
             break

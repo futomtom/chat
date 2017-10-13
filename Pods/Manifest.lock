@@ -1,21 +1,27 @@
 PODS:
-  - Closures (0.1.2)
+  - Alamofire (4.5.1)
+  - Closures (0.2.1)
+  - Kingfisher (4.1.0)
   - SnapKit (4.0.0)
   - SwiftyJSON (3.1.3)
   - YYText (1.0.7)
 
 DEPENDENCIES:
+  - Alamofire
   - Closures
+  - Kingfisher
   - SnapKit
   - SwiftyJSON (= 3.1.3)
   - YYText
 
 SPEC CHECKSUMS:
-  Closures: 3c751336d5790101fa62978c00d4ef7bd46117e3
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Closures: 1c960e394eba87e8eba4a72ea57613808942fb5b
+  Kingfisher: f14df8cbe576bf55f211fa589e9869bceb4ea87d
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 6080373430b140b27ede19ee3dc8f9c0d53d5ff6
+PODFILE CHECKSUM: 93ee1d99dcec529e465c0f460dd7ab728e5dbfa2
 
 COCOAPODS: 1.3.1
