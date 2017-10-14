@@ -29,9 +29,7 @@ public extension UIScreen {
     /// The screen's orientation size
     @available(iOS 8.0, *)
     class var ts_orientationSize: CGSize {
-        guard let app = UIApplication.shared.applca else {
-            return CGSize.zero
-        }
+        let app = UIApplication.shared 
         let systemVersion = (UIDevice.current.systemVersion as NSString).floatValue
         let isLand: Bool = UIInterfaceOrientationIsLandscape(app.statusBarOrientation)
         return (systemVersion > 8.0 && isLand) ? UIScreen.ts_swapSize(self.ts_size) : self.ts_size
@@ -68,9 +66,7 @@ public extension UIScreen {
     /// The screen's height without status bar's height
     @available(iOS 8.0, *)
     class var ts_screenHeightWithoutStatusBar: CGFloat {
-        guard let app = UIApplication.ts_sharedApplication() else {
-            return 0
-        }
+        let app = UIApplication.shared 
         if UIInterfaceOrientationIsPortrait(app.statusBarOrientation) {
             return UIScreen.main.bounds.size.height - app.statusBarFrame.height
         } else {

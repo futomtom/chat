@@ -36,7 +36,7 @@ struct ChatModel {
     //自定义时间 model
     init(timestamp: String) {
         super.init()
-        self.timestamp = timestamp
+        self.chat?.timestamp = timestamp
         self.messageContent = self.timeDate.chatTimeString
         self.messageContentType = .Time
     }
@@ -69,28 +69,29 @@ struct ChatModel {
         self.imageModel = imageModel
         self.chatSendId = UserInstance.userId!
     }
+
 }
 
 extension ChatModel {
     //后一条数据是否比前一条数据 多了 2 分钟以上
     func isLateForTwoMinutes(_ targetModel: ChatModel) -> Bool {
         //11是秒，服务器时间精确到毫秒，做一次判断
-        guard self.timestamp!.length > 11 else {
+        guard self.chat?.timestamp!.characters.count > 11 else {
             return false
         }
         
-        guard targetModel.timestamp!.length > 11 else {
+        guard targetModel.chat?.timestamp!.characters.count > 11 else {
             return false
         }
 
-        let nextSeconds = Double(self.timestamp!)!/1000
-        let previousSeconds = Double(targetModel.timestamp!)!/1000
+        let nextSeconds = Double(self.chat?.timestamp!)!/1000
+        let previousSeconds = Double(targetModel.chat?.timestamp!)!/1000
         return (nextSeconds - previousSeconds) > 120
     }
     
     var timeDate: Date {
         get {
-            let seconds = Double(self.timestamp!)!/1000
+            let seconds = Double(self.chat?.timestamp!)!/1000
             let timeInterval: TimeInterval = TimeInterval(seconds)
             return Date(timeIntervalSince1970: timeInterval)
         }

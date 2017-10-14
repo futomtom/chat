@@ -56,7 +56,7 @@ class TSChatEmotionInputView: UIView {
         
         //init listCollectionView
         self.listCollectionView.collectionViewLayout = layout
-        self.listCollectionView.register(TSChatEmotionCell.ts_Nib(), forCellWithReuseIdentifier: TSChatEmotionCell.identifier)
+        self.listCollectionView.register(TSChatEmotionCell.ts_Nib(), forCellWithReuseIdentifier: TSChatEmotionCell.ts_identifier)
         self.listCollectionView.isPagingEnabled = true
         self.listCollectionView.emotionScrollDelegate = self
 
@@ -120,7 +120,7 @@ extension TSChatEmotionInputView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TSChatEmotionCell.identifier, for: indexPath) as! TSChatEmotionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TSChatEmotionCell.ts_identifier, for: indexPath) as! TSChatEmotionCell
         if indexPath.row == kOneGroupCount {
             cell.setDeleteCellContnet()
         } else {

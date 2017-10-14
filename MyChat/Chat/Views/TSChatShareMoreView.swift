@@ -82,7 +82,7 @@ class TSChatShareMoreView: UIView {
         layout.itemSize = CGSize(width: itemSizeWidth, height: itemSizeHeight)
         
         self.listCollectionView.collectionViewLayout = layout
-        self.listCollectionView.register(TSChatShareMoreCollectionViewCell.ts_Nib(), forCellWithReuseIdentifier: TSChatShareMoreCollectionViewCell.identifier)
+        self.listCollectionView.register(TSChatShareMoreCollectionViewCell.ts_Nib(), forCellWithReuseIdentifier: TSChatShareMoreCollectionViewCell.ts_identifier)
         self.listCollectionView.showsHorizontalScrollIndicator = false
         self.listCollectionView.isPagingEnabled = true
         
@@ -130,18 +130,14 @@ extension TSChatShareMoreView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let subArray = self.groupDataSouce.get(index: section) else {
-            return 0
-        }
+        let subArray = self.groupDataSouce[section]
         return subArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TSChatShareMoreCollectionViewCell.identifier, for: indexPath) as! TSChatShareMoreCollectionViewCell
-        guard let subArray = self.groupDataSouce.get(index: indexPath.section) else {
-            return TSChatShareMoreCollectionViewCell()
-        }
-        if let item = subArray.get(index: indexPath.row) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TSChatShareMoreCollectionViewCell.ts_identifier, for: indexPath) as! TSChatShareMoreCollectionViewCell
+        let subArray = self.groupDataSouce[indexPath.section] 
+        if let item = subArray[indexPath.row] {
             cell.itemButton.setImage(item.iconImage, for: .normal)
             cell.itemLabel.text = item.name
         }

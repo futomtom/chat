@@ -84,10 +84,8 @@ public extension UIView {
             }
             
             let viewRect = self.convert(self.bounds, to: nil)
-            guard let app = UIApplication.shared else {
-                return false
-            }
-            guard let window = app.keyWindow else {
+  
+            guard let window = UIApplication.shared.keyWindow else {
                 return true
             }
             return viewRect.intersects(window.bounds) == false

@@ -88,7 +88,7 @@ class TSChatVoiceCell: TSChatBaseCell {
             return
         }
         
-        guard let duration = model.audioModel?.duration, duration > 0 else {
+        guard let duration = model.chat?.audioModel?.duration, duration > 0 else {
             return
         }
 

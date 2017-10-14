@@ -113,7 +113,7 @@ extension TSChatVoiceIndicatorView {
             TSAsset.RecordingSignal007.image,
             TSAsset.RecordingSignal008.image,
         ]
-        self.signalValueImageView.image = array.get(index: index)
+        self.signalValueImageView.image = array[index]
         
     }
 }

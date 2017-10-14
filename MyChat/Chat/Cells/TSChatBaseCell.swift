@@ -48,12 +48,7 @@ class TSChatBaseCell: UITableViewCell {
         self.avatarImageView.addGestureRecognizer(tap)
         self.avatarImageView.isUserInteractionEnabled = true
         self.addTapGesture() { _ in
-            if let strongSelf = self {
-                guard let delegate = strongSelf.delegate else {
-                    return
-                }
-                delegate.cellDidTapedAvatarImage(strongSelf)
-            }
+                self.delegate.cellDidTapedAvatarImage(strongSelf)
         }
     }
     

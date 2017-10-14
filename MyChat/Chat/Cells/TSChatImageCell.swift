@@ -28,22 +28,17 @@ class TSChatImageCell: TSChatBaseCell {
         let tap = UITapGestureRecognizer()
         self.chatImageView.addGestureRecognizer(tap)
         self.chatImageView.isUserInteractionEnabled = true
-        self.addTapGesture() {
-            if let strongSelf = self {
-                guard let delegate = strongSelf.delegate else {
-                    return
-                }
-                delegate.cellDidTapedImageView(strongSelf)
+        self.addTapGesture() { _ in
+            self.delegate?.cellDidTapedImageView(self)
             }
         }
-    }
     
     override func setCellContent(_ model: ChatModel) {
         super.setCellContent(model)
-        if let localThumbnailImage = model.imageModel!.localThumbnailImage {
+        if let localThumbnailImage = model.chat?.imageModel!.localThumbnailImage {
             self.chatImageView.image = localThumbnailImage
         } else {
-            self.chatImageView.ts_setImageWithURLString(model.imageModel!.thumbURL)
+            self.chatImageView.ts_setImageWithURLString(model.chat?.imageModel!.thumbURL)
         }
         self.setNeedsLayout()
     }
@@ -54,7 +49,7 @@ class TSChatImageCell: TSChatBaseCell {
             return
         }
         
-        guard let imageModel = model.imageModel else {
+        guard let imageModel = model.chat?.imageModel else {
             return
         }
         

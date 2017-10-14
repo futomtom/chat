@@ -79,8 +79,8 @@ class TSChatActionBarView: UIView {
         }}
     
     @IBOutlet weak var recordButton: UIButton! { didSet{
-        recordButton.setBackgroundImage(UIImage.fromColor(UIColor(ts_hexString:"#F3F4F8")), for: .normal)
-        recordButton.setBackgroundImage(UIImage.fromColor(UIColor(ts_hexString:"#C6C7CB")), for: .highlighted)
+        recordButton.setBackgroundImage(UIImage.fromColor(color: UIColor(ts_hexString:"#F3F4F8")), for: .normal)
+        recordButton.setBackgroundImage(UIImage.fromColor(color: UIColor(ts_hexString:"#C6C7CB")), for: .highlighted)
         recordButton.layer.borderColor = UIColor.init(ts_hexString:"#C2C3C7").cgColor
         recordButton.layer.borderWidth = 0.5
         recordButton.layer.cornerRadius = 5.0

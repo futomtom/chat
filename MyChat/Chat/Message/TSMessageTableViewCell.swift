@@ -49,7 +49,7 @@ class TSMessageTableViewCell: UITableViewCell {
     }
 
     func setCellContnet(_ model: MessageModel) {
-        self.avatarImageView.ts_setImageWithURLString(model.middleImageURL, placeholderImage: model.messageFromType.placeHolderImage)
+        self.avatarImageView.ts_setImageWithURLString(model.middleImageURL, placeholderImage: model.chat.messageFromType.placeHolderImage)
         self.unreadNumberLabel.text = model.unreadNumber > 99 ? "99+" : String(model.unreadNumber!)
         self.unreadNumberLabel.isHidden = (model.unreadNumber == 0)
         self.lastMessageLabel.text = model.lastMessage!

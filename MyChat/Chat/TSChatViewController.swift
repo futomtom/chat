@@ -114,14 +114,14 @@ extension TSChatViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let chatModel = self.itemDataSouce[indexPath.row] else {return 0}
-        let type: MessageContentType = chatModel.messageContentType
+        let chatModel = self.itemDataSouce[indexPath.row]
+        let type: MessageContentType = chatModel.chat!.messageContentType
         return type.chatCellHeight(chatModel)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let chatModel = self.itemDataSouce[indexPath.row] else {return TSChatBaseCell()}
-        let type: MessageContentType = chatModel.messageContentType
+        let chatModel = self.itemDataSouce[indexPath.row]
+        let type: MessageContentType = chatModel.chat!.messageContentType
         return type.chatCell(tableView, indexPath: indexPath, model: chatModel, viewController: self)!
     }
 }
