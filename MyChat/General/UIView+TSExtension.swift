@@ -84,7 +84,7 @@ public extension UIView {
             }
             
             let viewRect = self.convert(self.bounds, to: nil)
-            guard let app = UIApplication.ts_sharedApplication() else {
+            guard let app = UIApplication.shared else {
                 return false
             }
             guard let window = app.keyWindow else {

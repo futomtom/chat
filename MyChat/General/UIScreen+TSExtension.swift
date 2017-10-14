@@ -29,7 +29,7 @@ public extension UIScreen {
     /// The screen's orientation size
     @available(iOS 8.0, *)
     class var ts_orientationSize: CGSize {
-        guard let app = UIApplication.ts_sharedApplication() else {
+        guard let app = UIApplication.shared.applca else {
             return CGSize.zero
         }
         let systemVersion = (UIDevice.current.systemVersion as NSString).floatValue

@@ -13,6 +13,17 @@ import UIKit
 let kChatActionBarOriginalHeight: CGFloat = 50      //ActionBar orginal height
 let kChatActionBarTextViewMaxHeight: CGFloat = 120   //Expandable textview max height
 
+extension UIImage {
+    static func fromColor(color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        let renderer = UIGraphicsImageRenderer(size: rect.size)
+        let img = renderer.image { (ctx) in
+            ctx.cgContext.setFillColor(color.cgColor)
+            ctx.cgContext.fill(rect)
+        }
+        return img
+    }
+}
 /**
  *  表情按钮和分享按钮来控制键盘位置
  */
@@ -68,8 +79,8 @@ class TSChatActionBarView: UIView {
         }}
     
     @IBOutlet weak var recordButton: UIButton! { didSet{
-        recordButton.setBackgroundImage(UIImage.ts_imageWithColor(UIColor.init(ts_hexString:"#F3F4F8")), for: .normal)
-        recordButton.setBackgroundImage(UIImage.ts_imageWithColor(UIColor.init(ts_hexString:"#C6C7CB")), for: .highlighted)
+        recordButton.setBackgroundImage(UIImage.fromColor(UIColor(ts_hexString:"#F3F4F8")), for: .normal)
+        recordButton.setBackgroundImage(UIImage.fromColor(UIColor(ts_hexString:"#C6C7CB")), for: .highlighted)
         recordButton.layer.borderColor = UIColor.init(ts_hexString:"#C2C3C7").cgColor
         recordButton.layer.borderWidth = 0.5
         recordButton.layer.cornerRadius = 5.0

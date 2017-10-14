@@ -47,13 +47,13 @@ extension UIButton {
      - parameter isRecording: 是否开始录音
      */
     func replaceRecordButtonUI(isRecording: Bool) {
-        if isRecording {
-            self.ts_setBackgroundColor(UIColor.init(ts_hexString: "#C6C7CB"), forState: .normal)
-            self.ts_setBackgroundColor(UIColor.init(ts_hexString: "#F3F4F8"), forState: .highlighted)
-        } else {
-            self.ts_setBackgroundColor(UIColor.init(ts_hexString: "#F3F4F8"), forState: .normal)
-            self.ts_setBackgroundColor(UIColor.init(ts_hexString: "#C6C7CB"), forState: .highlighted)
-        }
+//        if isRecording {
+//            self.ts_setBackgroundColor(UIColor.init(ts_hexString: "#C6C7CB"), forState: .normal)
+//            self.ts_setBackgroundColor(UIColor.init(ts_hexString: "#F3F4F8"), forState: .highlighted)
+//        } else {
+//            self.ts_setBackgroundColor(UIColor.init(ts_hexString: "#F3F4F8"), forState: .normal)
+//            self.ts_setBackgroundColor(UIColor.init(ts_hexString: "#C6C7CB"), forState: .highlighted)
+//        }
     }
 }
 
