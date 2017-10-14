@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import SwiftyJSON
+import UIKit
+
 
 // MARK: - @extension TSChatViewController
 // 聊天测试数据 , 仅仅是测试

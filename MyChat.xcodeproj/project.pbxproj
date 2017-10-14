@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6920D03782C0B5C66C5EB9C7 /* Pods_MyChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ACCD909D02EE67142F7D2C /* Pods_MyChat.framework */; };
+		82CCDA071F91BC9F00D3DBD4 /* TSUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCDA061F91BC9F00D3DBD4 /* TSUserManager.swift */; };
+		82CCDA081F91BDF700D3DBD4 /* NSDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE20D61F916A060097CA69 /* NSDate+Extension.swift */; };
+		82CCDA0A1F91CF2B00D3DBD4 /* UILabel+TSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCDA091F91CF2B00D3DBD4 /* UILabel+TSExtension.swift */; };
 		82CE354E1F908E3B0003C125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CE354D1F908E3B0003C125 /* AppDelegate.swift */; };
 		82CE35531F908E3B0003C125 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82CE35511F908E3B0003C125 /* Main.storyboard */; };
 		82CE35551F908E3B0003C125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82CE35541F908E3B0003C125 /* Assets.xcassets */; };
@@ -82,6 +85,8 @@
 /* Begin PBXFileReference section */
 		3F71C46BBAD65F8C1B9E854C /* Pods-MyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyChat/Pods-MyChat.debug.xcconfig"; sourceTree = "<group>"; };
 		40ACCD909D02EE67142F7D2C /* Pods_MyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82CCDA061F91BC9F00D3DBD4 /* TSUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSUserManager.swift; sourceTree = "<group>"; };
+		82CCDA091F91CF2B00D3DBD4 /* UILabel+TSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+TSExtension.swift"; sourceTree = "<group>"; };
 		82CE354A1F908E3B0003C125 /* MyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CE354D1F908E3B0003C125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82CE35521F908E3B0003C125 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -286,6 +291,7 @@
 		82CE357E1F90A36B0003C125 /* ChatHelper */ = {
 			isa = PBXGroup;
 			children = (
+				82CCDA061F91BC9F00D3DBD4 /* TSUserManager.swift */,
 				82CE357F1F90A36B0003C125 /* AudioDelegate.swift */,
 				82CE35801F90A36B0003C125 /* AudioFilesManager.swift */,
 				82CE35811F90A36B0003C125 /* AudioPlayManager.swift */,
@@ -367,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				FAEE20FF1F9174490097CA69 /* UIView+TSFrame.swift */,
+				82CCDA091F91CF2B00D3DBD4 /* UILabel+TSExtension.swift */,
 				FAEE20CE1F916A060097CA69 /* NSDictionary+Extension.swift */,
 				FAEE20CF1F916A060097CA69 /* UIView+Frame.swift */,
 				FAEE20D01F916A060097CA69 /* NSObject+String.swift */,
@@ -493,6 +500,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MyChat/Pods-MyChat-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Closures/Closures.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -502,6 +510,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Closures.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -552,6 +561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82CCDA081F91BDF700D3DBD4 /* NSDate+Extension.swift in Sources */,
 				FAEE20F61F916EAA0097CA69 /* TSUIImage+WeChat.swift in Sources */,
 				FAEE20F81F916EAA0097CA69 /* TSImagePicker.swift in Sources */,
 				FAEE211D1F91877E0097CA69 /* UIScreen+TSExtension.swift in Sources */,
@@ -570,10 +580,12 @@
 				FAEE21091F9179760097CA69 /* String+TSCrypto.swift in Sources */,
 				FAEE20B51F913CE60097CA69 /* AudioPlayManager.swift in Sources */,
 				FAEE20B61F913CE60097CA69 /* AudioRecordManager.swift in Sources */,
+				82CCDA0A1F91CF2B00D3DBD4 /* UILabel+TSExtension.swift in Sources */,
 				FAEE20B71F913CE60097CA69 /* ChatConfig.swift in Sources */,
 				FAEE20B81F913CE60097CA69 /* ImageFilesManager.swift in Sources */,
 				FAEE20B91F913CE60097CA69 /* TSChatDataManager.swift in Sources */,
 				FAEE20BA1F913CE60097CA69 /* TSChatEmojiDictionary.swift in Sources */,
+				82CCDA071F91BC9F00D3DBD4 /* TSUserManager.swift in Sources */,
 				FAEE20BB1F913CE60097CA69 /* TSChatTextParser.swift in Sources */,
 				FAEE20BC1F913CE60097CA69 /* TSYYTextLinePositionModifier.swift in Sources */,
 				FAEE20BD1F913CE60097CA69 /* UIScrollView+ChatAdditions.swift in Sources */,

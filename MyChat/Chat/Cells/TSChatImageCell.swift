@@ -35,10 +35,10 @@ class TSChatImageCell: TSChatBaseCell {
     
     override func setCellContent(_ model: ChatModel) {
         super.setCellContent(model)
-        if let localThumbnailImage = model.chat?.imageModel!.localThumbnailImage {
+        if let localThumbnailImage = model.imageModel!.localThumbnailImage {
             self.chatImageView.image = localThumbnailImage
         } else {
-            self.chatImageView.ts_setImageWithURLString(model.chat?.imageModel!.thumbURL)
+            self.chatImageView.ts_setImageWithURLString(model.imageModel!.thumbURL)
         }
         self.setNeedsLayout()
     }
@@ -49,7 +49,7 @@ class TSChatImageCell: TSChatBaseCell {
             return
         }
         
-        guard let imageModel = model.chat?.imageModel else {
+        guard let imageModel = model.imageModel else {
             return
         }
         

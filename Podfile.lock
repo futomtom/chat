@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.5.1)
   - Closures (0.2.1)
+  - KeychainAccess (3.1.0)
   - Kingfisher (4.1.0)
   - SnapKit (4.0.0)
   - SwiftyJSON (3.1.3)
@@ -9,6 +10,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Closures
+  - KeychainAccess
   - Kingfisher
   - SnapKit
   - SwiftyJSON (= 3.1.3)
@@ -17,11 +19,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   Closures: 1c960e394eba87e8eba4a72ea57613808942fb5b
+  KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
   Kingfisher: f14df8cbe576bf55f211fa589e9869bceb4ea87d
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 93ee1d99dcec529e465c0f460dd7ab728e5dbfa2
+PODFILE CHECKSUM: c79a4283d8ce2b0b721de5de2789a6b8a86a6b91
 
 COCOAPODS: 1.3.1

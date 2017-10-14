@@ -7,96 +7,76 @@
 //
 
 import Foundation
-
 import YYText
 
-struct Chat: Codable {
-var audioModel : ChatAudioModel? //音频的 Model
-var imageModel : ChatImageModel? //图片的 Model
-var chatSendId : String?    //发送人 ID
-var chatReceiveId : String? //接受人 ID
-var device : String? //设备类型，iPhone，Android
-var messageContent : String?  //消息内容
-var messageId : String?  //消息 ID
-var messageContentType : MessageContentType = .Text //消息内容的类型
-var timestamp : String? //同 publishTimestamp
-var messageFromType : MessageFromType = MessageFromType.Group
-}
-
-struct ChatModel {
-    var chat:Chat?
+struct ChatModel : Codable {
+    var audioModel : ChatAudioModel? //音频的 Model
+    var imageModel : ChatImageModel? //图片的 Model
+    var chatSendId : String?    //发送人 ID
+    var chatReceiveId : String? //接受人 ID
+    var device : String? //设备类型，iPhone，Android
+    var messageContent : String?  //消息内容
+    var messageId : String?  //消息 ID
+    var messageContentType : MessageContentType = .Text //消息内容的类型
+    var timestamp : String? //同 publishTimestamp
+    var messageFromType : MessageFromType = MessageFromType.Group
     //以下是为了配合 UI 来使用
-    var fromMe : Bool { return self.chatSendId == UserInstance.userId }
+    var fromMe : Bool
     var richTextLayout: YYTextLayout?
     var richTextLinePositionModifier: TSYYTextLinePositionModifier?
     var richTextAttributedString: NSMutableAttributedString?
     var messageSendSuccessType: MessageSendSuccessType = .failed //发送消息的状态
     var cellHeight: CGFloat = 0 //计算的高度储存使用，默认0
 
-    //自定义时间 model
-    init(timestamp: String) {
-        super.init()
-        self.chat?.timestamp = timestamp
-        self.messageContent = self.timeDate.chatTimeString
-        self.messageContentType = .Time
-    }
-
-    //自定义发送文本的 ChatModel
-    init(text: String) {
-        super.init()
-        self.timestamp = String(format: "%f", Date.milliseconds)
-        self.messageContent = text
-        self.messageContentType = .Text
-        self.chatSendId = UserInstance.userId!
-    }
-
-    //自定义发送声音的 ChatModel
-    init(audioModel: ChatAudioModel) {
-        super.init()
-        self.timestamp = String(format: "%f", Date.milliseconds)
-        self.messageContent = "[声音]"
-        self.messageContentType = .Voice
-        self.audioModel = audioModel
-        self.chatSendId = UserInstance.userId!
-    }
-
-    //自定义发送图片的 ChatModel
-    init(imageModel: ChatImageModel) {
-        super.init()
-        self.timestamp = String(format: "%f", Date.milliseconds)
-        self.messageContent = "[图片]"
-        self.messageContentType = .Image
-        self.imageModel = imageModel
-        self.chatSendId = UserInstance.userId!
-    }
-
-}
-
-extension ChatModel {
-    //后一条数据是否比前一条数据 多了 2 分钟以上
-    func isLateForTwoMinutes(_ targetModel: ChatModel) -> Bool {
-        //11是秒，服务器时间精确到毫秒，做一次判断
-        guard self.chat?.timestamp!.characters.count > 11 else {
-            return false
-        }
-        
-        guard targetModel.chat?.timestamp!.characters.count > 11 else {
-            return false
-        }
-
-        let nextSeconds = Double(self.chat?.timestamp!)!/1000
-        let previousSeconds = Double(targetModel.chat?.timestamp!)!/1000
-        return (nextSeconds - previousSeconds) > 120
-    }
     
     var timeDate: Date {
         get {
-            let seconds = Double(self.chat?.timestamp!)!/1000
+            let seconds = Double(self.timestamp!)!/1000
             let timeInterval: TimeInterval = TimeInterval(seconds)
             return Date(timeIntervalSince1970: timeInterval)
         }
     }
+  
+    //自定义时间 model
+    init(timestamp: String) {
+        self.timestamp = timestamp
+        messageContent = timeDate.chatTimeString
+        messageContentType = .Time
+    }
+
+    //自定义发送文本的 ChatModel
+    init(text: String) {
+        timestamp = String(format: "%f", Date.milliseconds)
+        messageContent = text
+        messageContentType = .Text
+        chatSendId = UserInstance.userId!
+    }
+
+    //自定义发送声音的 ChatModel
+    init(audioModel: ChatAudioModel) {
+        timestamp = String(format: "%f", Date.milliseconds)
+        messageContent = "[声音]"
+        messageContentType = .Voice
+        self.audioModel = audioModel
+        chatSendId = UserInstance.userId!
+    }
+
+    //自定义发送图片的 ChatModel
+    init(imageModel: ChatImageModel) {
+        timestamp = String(format: "%f", Date.milliseconds)
+        messageContent = "[图片]"
+        messageContentType = .Image
+        self.imageModel = imageModel
+        chatSendId = UserInstance.userId!
+    }
+    
+    func isLateForTwoMinutes(_ targetModel: ChatModel) -> Bool {
+        return false
+    }
+
 }
+
+
 
 
 

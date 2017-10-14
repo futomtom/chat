@@ -12,4 +12,5 @@ target 'MyChat' do
   pod 'SnapKit'
   pod 'Alamofire'
   pod 'Kingfisher'
+  pod 'KeychainAccess'
 end

@@ -305,7 +305,7 @@ extension TSChatViewController: TSChatCellDelegate {
         
         if isPlayingVoice {
             self.currentVoiceCell = cell
-            guard let audioModel = cell.model!.chat?.audioModel else {
+            guard let audioModel = cell.model!.audioModel else {
                 AudioPlayInstance.stopPlayer()
                 return
             }

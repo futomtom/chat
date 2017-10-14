@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreGraphics
 
 
 /*
@@ -31,8 +32,8 @@ struct ChatAudioModel : Codable {
 * 聊天内的子 model，根据字典返回类型做处理
 */
 struct ChatImageModel : Codable {
-    var imageHeight : Float?
-    var imageWidth : Float?
+    var imageHeight : CGFloat?
+    var imageWidth : CGFloat?
     var imageId : String?
     var originalURL : String?
     var thumbURL : String?
